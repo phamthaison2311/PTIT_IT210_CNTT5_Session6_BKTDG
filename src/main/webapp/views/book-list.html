@@ -5,25 +5,29 @@
     <title>Trang danh sách</title>
 </head>
 <body>
-    <h1>BOOK STORE</h1>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Tên sách</th>
-        <th>Tên tác giả</th>
-        <th>Giá</th>
-    </tr>
-    <tbody>
-        <c:forEach var="book" itemr=${books}>
-            <tr>
-                <td th:text="${book.id}"></td>
-                <td th:text="${book.title}"></td>
-                <td th:text="${book.author}"></td>
-                <td th:text="${book.price}"></td>
-            </tr>
-        </c:forEach>
-    </tbody>
+<div th:replace="~{layout/fragments :: header(${pageTitle})}"></div>
 
+<table>
+    <thead>
+    <tr>
+        <th>Mã</th>
+        <th>Tên sách</th>
+        <th>Tác giả</th>
+        <th>Giá</th>
+        <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="b : ${books}" th:classappend="${b.price >= 300000} ? 'highlight' : ''">
+        <td th:text="${b.id}"></td>
+        <td th:text="${b.title}"></td>
+        <td th:text="${b.author}"></td>
+        <td th:text="${#numbers.formatDecimal(b.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+        <td><a th:href="@{/books/{id}(id=${b.id})}">Xem</a></td>
+    </tr>
+    </tbody>
 </table>
+
+<div th:replace="~{layout/fragments :: footer}"></div>
 </body>
 </html>

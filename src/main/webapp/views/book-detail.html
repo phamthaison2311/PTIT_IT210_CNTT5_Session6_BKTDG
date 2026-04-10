@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="~{layout/fragments :: header(${pageTitle})}"></div>
 
+<div style="width: 30rem;" th:if="${book != null}">
+    <div>
+        <h5 th:text="${book.title}"></h5>
+        <p><strong>Tác giả:</strong> <span th:text="${book.author}"></span></p>
+        <p><strong>Giá bán:</strong> <span th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span></p>
+        <a th:href="@{/books}">Quay lại danh sách</a>
+    </div>
+</div>
+
+<div th:replace="~{layout/fragments :: footer}"></div>
 </body>
 </html>

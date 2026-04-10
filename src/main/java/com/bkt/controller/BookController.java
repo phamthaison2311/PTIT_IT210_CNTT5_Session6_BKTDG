@@ -30,12 +30,10 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String viewDetail(@PathVariable int id, Model model) {
-        Book book = bookList.stream()
-                .filter(b -> b.getId() == id)
-                .findFirst().orElse(null);
+    public String viewDetail(@PathVariable("id") int id, Model model) {
+        Book book = bookList.stream().filter(b -> b.getId() == id).findFirst().orElse(null);
         model.addAttribute("book", book);
-        model.addAttribute("pageTitle", "CHI TIẾT SÁCH");
+        model.addAttribute("pageTitle", "CHI TIẾT SÁCH: " + (book != null ? book.getTitle() : "N/A"));
         return "book-detail";
     }
 }
